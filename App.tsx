@@ -10,24 +10,13 @@ const Stack = createStackNavigator();
 const Application = () => {
     return (
         <NavigationContainer>
-            <View style={styles.container}>
-                <Stack.Navigator initialRouteName="QRCode">
-                    <Stack.Screen name={'QRCode'} component={QRCodeScreen} />
-                    <Stack.Screen name={'Scan'} component={ScanScreen} />
-                </Stack.Navigator>
-                <StatusBar style="auto" />
-            </View>
+            <Stack.Navigator initialRouteName="QRCode">
+                <Stack.Screen name={'QRCode'} component={QRCodeScreen} />
+                <Stack.Screen name={'Scan'} component={ScanScreen} />
+            </Stack.Navigator>
+            <StatusBar style="auto" />
         </NavigationContainer>
     );
 };
 
 export default Application;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});
