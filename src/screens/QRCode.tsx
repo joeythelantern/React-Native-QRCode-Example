@@ -1,18 +1,10 @@
 import React from 'react';
 import { Button } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { IStackScreenProps } from '../library/IStackScreenProps';
+import { IQRCodePayload } from '../library/IQRCodePayload';
 
-export interface IQRCodePayload {
-    name: string;
-    number: string;
-}
-
-export interface IQRCodeScreenProps {
-    navigation: StackNavigationProp<any>;
-}
-
-const QRCodeScreen: React.FunctionComponent<IQRCodeScreenProps> = (props) => {
+const QRCodeScreen: React.FunctionComponent<IStackScreenProps> = (props) => {
     const { navigation } = props;
     const payload: IQRCodePayload = { name: 'Cool Person', number: '1-234-567-8900' };
 
