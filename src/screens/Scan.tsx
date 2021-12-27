@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, Button } from 'react-native';
 import { IStackScreenProps } from '../library/IStackScreenProps';
 import { IQRCodePayload } from '../library/IQRCodePayload';
 
@@ -34,6 +34,18 @@ const ScanScreen: React.FunctionComponent<IStackScreenProps> = (props) => {
 
     if (loading) return <Text>Requesting permission ...</Text>;
 
+    if (scanData) {
+        return (
+            <>
+                <Text style={styles.text}>Name: {scanData.name}</Text>
+                <Text style={styles.text}>Number: {scanData.number}</Text>
+                <Button title="Scan Again" onPress={() => setScanData(undefined)}>
+                    Scan Again
+                </Button>
+            </>
+        );
+    }
+
     if (permission) {
         return (
             <BarCodeScanner
@@ -41,8 +53,6 @@ const ScanScreen: React.FunctionComponent<IStackScreenProps> = (props) => {
                 onBarCodeScanned={({ type, data }) => {
                     try {
                         let _data = JSON.parse(data);
-                        console.log('Data: ', _data);
-                        console.log('type: ', type);
                         setScanData(_data);
                     } catch (error) {
                         console.error('Unable to parse string: ', error);
@@ -50,12 +60,6 @@ const ScanScreen: React.FunctionComponent<IStackScreenProps> = (props) => {
                 }}
             >
                 <Text style={styles.text}>Scan the QR code.</Text>
-                {scanData && (
-                    <>
-                        <Text style={styles.text}>Name: {scanData.name}</Text>
-                        <Text style={styles.text}>Number: {scanData.number}</Text>
-                    </>
-                )}
             </BarCodeScanner>
         );
     } else {
@@ -73,7 +77,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     text: {
-        marginTop: 15
+        marginTop: 15,
+        backgroundColor: 'white'
     },
     textError: {
         color: 'red'
