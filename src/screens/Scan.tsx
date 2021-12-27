@@ -52,6 +52,8 @@ const ScanScreen: React.FunctionComponent<IStackScreenProps> = (props) => {
                 style={[styles.container]}
                 onBarCodeScanned={({ type, data }) => {
                     try {
+                        console.log(type);
+                        console.log(data);
                         let _data = JSON.parse(data);
                         setScanData(_data);
                     } catch (error) {
